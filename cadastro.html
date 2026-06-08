@@ -1,44 +1,73 @@
-<nav>
-    <div class="logo">NETFLIX</div>
-</nav>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix - Criar Conta</title>
+    <link rel="stylesheet" href="cadastro.css">
+</head>
+<body>
 
-<div class="container">
-    <div class="box">
-        <h2>Entrar</h2>
-        <p class="subtitle">Crie sua conta para começar.</p>
-        
-        <form>
-            <!-- Grupo de Input Técnico -->
-            <div class="input-group">
-                <input type="email" id="email" placeholder=" " required>
-                <label for="email">Email ou número de telefone</label>
+    <nav>
+        <div class="logo">NETFLIX</div>
+        <ul>
+            <li><a href="login.html" style="text-decoration: none; color: #fff; font-weight: 500; font-size: 14px;">Entrar</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="box">
+            <h2>Entrar</h2>
+            <p class="subtitle">Crie sua conta para começar.</p>
+            
+            <form id="registerForm">
+                <div class="input-group">
+                    <input type="text" id="regName" placeholder=" " required>
+                    <label for="regName">Nome completo</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" id="regEmail" placeholder=" " required>
+                    <label for="regEmail">Email ou número de telefone</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="regPassword" placeholder=" " required>
+                    <label for="regPassword">Senha</label>
+                </div>
+
+                <div class="select-group">
+                    <select id="plano" required>
+                        <option value="" disabled selected hidden></option>
+                        <option value="premium">Premium (4K + HDR)</option>
+                        <option value="padrao">Padrão (1080p)</option>
+                        <option value="basico">Básico (720p)</option>
+                    </select>
+                    <label for="plano">Escolha seu plano</label>
+                </div>
+
+                <p class="terms-text">
+                    Esta página é protegida pelo Google reCAPTCHA para garantir que você não é um robô.
+                </p>
+
+                <button type="submit" class="btn-register">Próximo</button>
+            </form>
+
+            <div class="footer-link">
+                Já tem conta? <a href="login.html">Entre agora.</a>
             </div>
-
-            <div class="input-group">
-                <input type="password" id="password" placeholder=" " required>
-                <label for="password">Senha</label>
-            </div>
-
-            <!-- Grupo de Select Técnico -->
-            <div class="select-group">
-                <select id="plano" required>
-                    <option value="" disabled selected hidden></option>
-                    <option value="premium">Premium (4K + HDR)</option>
-                    <option value="padrao">Padrão (1080p)</option>
-                    <option value="basico">Básico (720p)</option>
-                </select>
-                <label for="plano">Escolha seu plano</label>
-            </div>
-
-            <p class="terms-text">
-                Esta página é protegida pelo Google reCAPTCHA para garantir que você não é um robô.
-            </p>
-
-            <button type="submit" class="btn-register">Próximo</button>
-        </form>
-
-        <div class="footer-link">
-            Novo por aqui? <a href="#">Assine agora.</a>
         </div>
     </div>
-</div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            localStorage.setItem('db_name', document.getElementById('regName').value);
+            localStorage.setItem('db_email', document.getElementById('regEmail').value.toLowerCase());
+            localStorage.setItem('db_password', document.getElementById('regPassword').value);
+            alert("Conta criada com sucesso simulada localmente!");
+            window.location.href = "login.html";
+        });
+    </script>
+</body>
+</html>

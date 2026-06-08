@@ -16,7 +16,7 @@
     <nav>
         <div class="logo">NETFLIX</div>
         <ul>
-            <li><a href="cadastro.html">Cadastrar</a></li>
+            <li><a href="cadastro.html" style="text-decoration: none; color: #fff; font-weight: 500; font-size: 14px;">Cadastrar</a></li>
         </ul>
     </nav>
 
@@ -60,7 +60,6 @@
             const senhaDigitada = document.getElementById('loginPass').value;
             const overlay = document.getElementById('loadingOverlay');
 
-            // Busca os dados salvos no navegador
             const emailSalvo = localStorage.getItem('db_email');
             const senhaSalva = localStorage.getItem('db_password');
             const nomeSalvo = localStorage.getItem('db_name');
@@ -69,8 +68,7 @@
                 overlay.classList.add('active');
                 setTimeout(() => {
                     overlay.classList.remove('active');
-                    alert("Olá, " + nomeSalvo + "! Login efetuado com sucesso.");
-                    // Aqui redirecionaria para o catálogo
+                    alert("Olá, " + (nomeSalvo ? nomeSalvo : "Usuário") + "! Login efetuado com sucesso.");
                 }, 2000);
             } else {
                 alert("E-mail ou senha incorretos! Se esqueceu, clique em 'Precisa de ajuda?'.");

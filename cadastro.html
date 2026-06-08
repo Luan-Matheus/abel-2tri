@@ -1,0 +1,44 @@
+<nav>
+    <div class="logo">NETFLIX</div>
+</nav>
+
+<div class="container">
+    <div class="box">
+        <h2>Entrar</h2>
+        <p class="subtitle">Crie sua conta para começar.</p>
+        
+        <form>
+            <!-- Grupo de Input Técnico -->
+            <div class="input-group">
+                <input type="email" id="email" placeholder=" " required>
+                <label for="email">Email ou número de telefone</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password" placeholder=" " required>
+                <label for="password">Senha</label>
+            </div>
+
+            <!-- Grupo de Select Técnico -->
+            <div class="select-group">
+                <select id="plano" required>
+                    <option value="" disabled selected hidden></option>
+                    <option value="premium">Premium (4K + HDR)</option>
+                    <option value="padrao">Padrão (1080p)</option>
+                    <option value="basico">Básico (720p)</option>
+                </select>
+                <label for="plano">Escolha seu plano</label>
+            </div>
+
+            <p class="terms-text">
+                Esta página é protegida pelo Google reCAPTCHA para garantir que você não é um robô.
+            </p>
+
+            <button type="submit" class="btn-register">Próximo</button>
+        </form>
+
+        <div class="footer-link">
+            Novo por aqui? <a href="#">Assine agora.</a>
+        </div>
+    </div>
+</div>

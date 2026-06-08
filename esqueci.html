@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix - Redefinir Senha</title>
+    <link rel="stylesheet" href="esqueci-senha.css">
+</head>
+<body>
+
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Processando...</p>
+    </div>
+
+    <nav>
+        <div class="logo">NETFLIX</div>
+        <ul>
+            <li><a href="login.html">Entrar</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="box">
+            <h2 id="formTitle">Esqueceu a senha?</h2>
+            <p id="formSubtitle" class="subtitle">Confirme o seu e-mail de cadastro para redefinir sua conta.</p>
+            
+            <form id="forgotForm">
+                <!-- ETAPA 1: Validar se a conta existe -->
+                <div id="step1">
+                    <div class="input-group">
+                        <input type="email" id="forgotEmail" placeholder=" " required>
+                        <label for="forgotEmail">E-mail cadastrado</label>
+                    </div>
+                    <button type="button" id="btnNextStep" class="btn-reset">Avançar</button>
+                </div>
+
+                <!-- ETAPA 2: Modificar a Senha de Verdade -->
+                <div id="step2" style="display: none;">
+                    <div class="input-group">
+                        <input type="password" id="newResetPass" placeholder=" ">
+                        <label for="newResetPass">Digite sua nova senha</label>
+                    </div>
+                    <button type="submit" class="btn-reset" style="margin-top: 16px;">Concluir Alteração</button>
+                </div>
+            </form>
+
+            <div class="footer-link">
+                <span>Lembrou?</span> <a href="login.html">Voltar para o login.</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const btnNextStep = document.getElementById('btnNextStep');
+        const forgotForm = document.getElementById('forgotForm');
+        const forgotEmail = document.getElementById('forgotEmail');
+        const newResetPass = document.getElementById('newResetPass');
+        const overlay = document.getElementById('loadingOverlay');
+        
+        const formTitle = document.getElementById('formTitle');
+        const formSubtitle = document.getElementById('formSubtitle');
+
+        btnNextStep.addEventListener('click', () => {
+            const emailDigitado = forgotEmail.value.toLowerCase();
+            const emailSalvo = localStorage.getItem('db_email');
+
+            if (!forgotEmail.checkValidity()) {
+                alert("Por favor, insira um formato de e-mail válido.");
+                return;
+            }
+
+            if (emailDigitado !== emailSalvo) {
+                alert("Este e-mail não foi encontrado no nosso cadastro.");
+                return;
+            }
+
+            overlay.classList.add('active');
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                formTitle.textContent = "Nova Senha";
+                formSubtitle.textContent = "Crie uma nova senha de acesso para sua conta.";
+                step1.style.display = 'none';
+                step2.style.display = 'block';
+                newResetPass.setAttribute('required', 'true');
+            }, 1500);
+        });
+
+        forgotForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            overlay.classList.add('active');
+            
+            // Grava a nova senha por cima da anterior
+            localStorage.setItem('db_password', newResetPass.value);
+
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                alert("Senha alterada com sucesso! Entre usando a nova senha.");
+                window.location.href = "login.html";
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

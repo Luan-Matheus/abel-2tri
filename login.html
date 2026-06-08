@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix - Entrar</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Entrando...</p>
+    </div>
+
+    <nav>
+        <div class="logo">NETFLIX</div>
+        <ul>
+            <li><a href="cadastro.html">Cadastrar</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="box">
+            <h2>Entrar</h2>
+            
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="email" id="loginEmail" placeholder=" " required>
+                    <label for="loginEmail">E-mail</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="loginPass" placeholder=" " required>
+                    <label for="loginPass">Senha</label>
+                </div>
+
+                <button type="submit" class="btn-login">Entrar</button>
+
+                <div class="remember-help">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Lembre-se de mim</label>
+                    </div>
+                    <a href="esqueci-senha.html" class="help-link">Precisa de ajuda?</a>
+                </div>
+            </form>
+
+            <div class="footer-link">
+                <span>Novo por aqui?</span> <a href="cadastro.html">Assine agora.</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailDigitado = document.getElementById('loginEmail').value.toLowerCase();
+            const senhaDigitada = document.getElementById('loginPass').value;
+            const overlay = document.getElementById('loadingOverlay');
+
+            // Busca os dados salvos no navegador
+            const emailSalvo = localStorage.getItem('db_email');
+            const senhaSalva = localStorage.getItem('db_password');
+            const nomeSalvo = localStorage.getItem('db_name');
+
+            if (emailDigitado === emailSalvo && senhaDigitada === senhaSalva) {
+                overlay.classList.add('active');
+                setTimeout(() => {
+                    overlay.classList.remove('active');
+                    alert("Olá, " + nomeSalvo + "! Login efetuado com sucesso.");
+                    // Aqui redirecionaria para o catálogo
+                }, 2000);
+            } else {
+                alert("E-mail ou senha incorretos! Se esqueceu, clique em 'Precisa de ajuda?'.");
+            }
+        });
+    </script>
+</body>
+</html>

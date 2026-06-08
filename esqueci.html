@@ -16,7 +16,7 @@
     <nav>
         <div class="logo">NETFLIX</div>
         <ul>
-            <li><a href="login.html">Entrar</a></li>
+            <li><a href="login.html" style="text-decoration: none; color: #fff; font-weight: 500; font-size: 14px;">Entrar</a></li>
         </ul>
     </nav>
 
@@ -26,7 +26,7 @@
             <p id="formSubtitle" class="subtitle">Confirme o seu e-mail de cadastro para redefinir sua conta.</p>
             
             <form id="forgotForm">
-                <!-- ETAPA 1 -->
+                <!-- ETAPA 1: Validar se a conta existe -->
                 <div id="step1">
                     <div class="input-group">
                         <input type="email" id="forgotEmail" placeholder=" " required>
@@ -35,7 +35,7 @@
                     <button type="button" id="btnNextStep" class="btn-reset">Avançar</button>
                 </div>
 
-                <!-- ETAPA 2 -->
+                <!-- ETAPA 2: Modificar a Senha de Verdade -->
                 <div id="step2" style="display: none;">
                     <div class="input-group">
                         <input type="password" id="newResetPass" placeholder=" ">
@@ -64,19 +64,28 @@
         const formSubtitle = document.getElementById('formSubtitle');
 
         btnNextStep.addEventListener('click', () => {
-            const emailDigitado = forgotEmail.value.toLowerCase();
+            const emailDigitado = forgotEmail.value.trim().toLowerCase();
             const emailSalvo = localStorage.getItem('db_email');
 
-            if (!forgotEmail.checkValidity()) {
+            // 1. Valida se o formato do e-mail é válido
+            if (!forgotEmail.checkValidity() || emailDigitado === "") {
                 alert("Por favor, insira um formato de e-mail válido.");
                 return;
             }
 
-            if (emailDigitado !== emailSalvo) {
+            // 2. Valida se existe alguma conta criada no navegador
+            if (!emailSalvo) {
+                alert("Nenhuma conta encontrada neste navegador. Por favor, crie uma conta na página de Cadastro primeiro.");
+                return;
+            }
+
+            // 3. Valida se o e-mail digitado é igual ao e-mail cadastrado
+            if (emailDigitado !== emailSalvo.trim().toLowerCase()) {
                 alert("Este e-mail não foi encontrado no nosso cadastro.");
                 return;
             }
 
+            // Se passar nas validações, exibe o loading e avança
             overlay.classList.add('active');
             setTimeout(() => {
                 overlay.classList.remove('active');
@@ -85,14 +94,24 @@
                 step1.style.display = 'none';
                 step2.style.display = 'block';
                 newResetPass.setAttribute('required', 'true');
+                newResetPass.focus();
             }, 1500);
         });
 
         forgotForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            const novaSenha = newResetPass.value;
+
+            if (novaSenha.length < 4) {
+                alert("A senha deve ter pelo menos 4 caracteres.");
+                return;
+            }
+
             overlay.classList.add('active');
             
-            localStorage.setItem('db_password', newResetPass.value);
+            // Grava a nova senha por cima da anterior no banco de dados local
+            localStorage.setItem('db_password', novaSenha);
 
             setTimeout(() => {
                 overlay.classList.remove('active');

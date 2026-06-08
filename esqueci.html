@@ -26,7 +26,7 @@
             <p id="formSubtitle" class="subtitle">Confirme o seu e-mail de cadastro para redefinir sua conta.</p>
             
             <form id="forgotForm">
-                <!-- ETAPA 1: Validar se a conta existe -->
+                <!-- ETAPA 1 -->
                 <div id="step1">
                     <div class="input-group">
                         <input type="email" id="forgotEmail" placeholder=" " required>
@@ -35,7 +35,7 @@
                     <button type="button" id="btnNextStep" class="btn-reset">Avançar</button>
                 </div>
 
-                <!-- ETAPA 2: Modificar a Senha de Verdade -->
+                <!-- ETAPA 2 -->
                 <div id="step2" style="display: none;">
                     <div class="input-group">
                         <input type="password" id="newResetPass" placeholder=" ">
@@ -92,7 +92,6 @@
             e.preventDefault();
             overlay.classList.add('active');
             
-            // Grava a nova senha por cima da anterior
             localStorage.setItem('db_password', newResetPass.value);
 
             setTimeout(() => {
